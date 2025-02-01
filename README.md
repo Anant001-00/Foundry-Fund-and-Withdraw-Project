@@ -66,4 +66,6 @@ $ cast --help
 ```
 <div align="center">
 <h1> Blockchain Development Project by Anant </h1>
+<p> This is my first project on Web3 pushed up to github </p>
+</div>
 
