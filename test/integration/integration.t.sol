@@ -7,7 +7,6 @@ import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 import {FundFundMe, WithdrawFundMe} from "../../script/interactions.s.sol";
 
-
 contract IntegrationTest is Test {
     FundMe fundMe;
     DeployFundMe deployFundMe;
@@ -16,16 +15,16 @@ contract IntegrationTest is Test {
 
     address user = makeAddr("user");
 
-    function setUp() external{
+    function setUp() external {
         deployFundMe = new DeployFundMe();
         fundMe = deployFundMe.run();
-        vm.deal(user,STARTING_BALANCE);
+        vm.deal(user, STARTING_BALANCE);
     }
 
-    function testFundandWithdraw() public{
+    function testFundandWithdraw() public {
         uint256 initialuserBalance = address(user).balance;
         uint256 initialOwnerBalance = address(fundMe.getOwner()).balance;
-        
+
         vm.prank(user);
         fundMe.Fund{value: SEND_VALUE}();
         //FundFundMe fundFundMe = new FundFundMe();
@@ -37,9 +36,8 @@ contract IntegrationTest is Test {
         uint256 finalOwnerBalance = address(fundMe.getOwner()).balance;
         uint256 finaluserBalance = address(user).balance;
 
-        assertEq(address(fundMe).balance,0);
+        assertEq(address(fundMe).balance, 0);
         assertEq(finalOwnerBalance, initialOwnerBalance + SEND_VALUE);
         assertEq(finaluserBalance, initialuserBalance - SEND_VALUE);
     }
-
 }
